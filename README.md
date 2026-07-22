@@ -22,3 +22,5 @@ and visit http://localhost:8000.
 To deploy on GitHub Pages: Settings → Pages → deploy from branch, root folder. No other setup needed.
 
 Newsletter posts in the writing section are hardcoded from the [Substack feed](https://climatesnewsletter.substack.com/feed); refresh them when there's a new edition worth featuring.
+
+`CNAME` points GitHub Pages at climateshq.com. Photos in `assets/img/` are from [Unsplash](https://unsplash.com/license) (free to use, no attribution required).

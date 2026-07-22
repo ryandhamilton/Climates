@@ -92,9 +92,42 @@ body {
 /* ---------- Hero ---------- */
 
 .hero {
+  position: relative;
+  overflow: hidden;
+  color: #f4efe4;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: kenburns 24s ease-in-out infinite alternate;
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(15, 30, 24, 0.82) 0%, rgba(15, 30, 24, 0.55) 55%, rgba(15, 30, 24, 0.3) 100%);
+}
+
+@keyframes kenburns {
+  from { transform: scale(1) translateY(0); }
+  to { transform: scale(1.12) translateY(-2%); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
   max-width: 52rem;
   margin: 0 auto;
-  padding: clamp(4rem, 10vw, 7.5rem) 1.5rem clamp(3rem, 7vw, 5rem);
+  padding: clamp(5rem, 12vw, 9rem) 1.5rem clamp(4rem, 9vw, 7rem);
   text-align: left;
 }
 
@@ -107,18 +140,20 @@ body {
   margin-bottom: 1rem;
 }
 
+.hero-inner .kicker { color: #e9b18f; }
+
 .hero h1 {
   font-family: var(--serif);
   font-weight: 500;
   font-size: clamp(2.4rem, 6vw, 4rem);
   line-height: 1.1;
-  color: var(--green);
+  color: #fdfaf2;
   margin-bottom: 1.5rem;
 }
 
 .hero-sub {
   font-size: 1.15rem;
-  color: var(--ink-soft);
+  color: rgba(244, 239, 228, 0.88);
   max-width: 40rem;
   margin-bottom: 1rem;
 }
@@ -149,6 +184,13 @@ body {
 }
 
 .btn-ghost:hover { background: var(--green); color: #fff; }
+
+.btn-light {
+  color: #fdfaf2;
+  border: 1.5px solid rgba(253, 250, 242, 0.7);
+}
+
+.btn-light:hover { background: rgba(253, 250, 242, 0.15); }
 
 /* ---------- Sections ---------- */
 
@@ -207,7 +249,30 @@ body {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 1.75rem 1.5rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(30, 58, 47, 0.12);
+}
+
+.card-img {
+  margin: -1.75rem -1.5rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .card-img img { transform: scale(1.06); }
 
 .card-num {
   font-family: var(--serif);
@@ -318,7 +383,79 @@ body {
   background: #fff;
 }
 
+/* ---------- Bands (parallax) ---------- */
+
+.band {
+  position: relative;
+  min-height: clamp(16rem, 40vw, 24rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 30, 24, 0.45);
+}
+
+.band-mates { background-image: url("../assets/img/mates.jpg"); }
+.band-solar { background-image: url("../assets/img/solar.jpg"); }
+
+.band-line {
+  position: relative;
+  z-index: 1;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  color: #fdfaf2;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  max-width: 40rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 900px) {
+  .band { background-attachment: scroll; }
+}
+
 /* ---------- About ---------- */
+
+.about-grid {
+  max-width: 52rem;
+  margin: 2rem auto 0;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.about-img {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.about-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.about-img figcaption {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  padding-top: 0.6rem;
+  font-style: italic;
+}
+
+@media (max-width: 720px) {
+  .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+}
 
 .about-body p {
   font-size: 1.05rem;
@@ -337,6 +474,27 @@ body {
   font-size: 0.9rem;
   color: var(--ink-soft);
   border-top: 1px solid var(--line);
+}
+
+/* ---------- Scroll reveals ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-bg img { animation: none; }
+  .band { background-attachment: scroll; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .card, .card-img img { transition: none; }
 }
 
 /* ---------- Mobile ---------- */
