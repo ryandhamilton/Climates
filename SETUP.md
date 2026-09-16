@@ -1,5 +1,16 @@
 # Getting climateshq.com live, step by step
 
+## Hosting on GoDaddy instead? (single-file version)
+
+The repo also builds a one-file copy of the whole site: `dist/climateshq.html` (CSS, JavaScript, and every image packed inside, ~2.3 MB). Nothing else needs uploading.
+
+- **GoDaddy Web Hosting / cPanel**: cPanel → File Manager → `public_html` → Upload → pick `climateshq.html` → rename it to `index.html` (replace what's there). Done.
+- **GoDaddy Website Builder**: the builder can't take a full HTML page; it only accepts text and its own blocks. Either add a cheap hosting plan to the domain and upload the file as above, or copy the text section-by-section from `index.html` into builder blocks.
+
+To rebuild the file after editing the site: `python3 scripts/build_onefile.py`
+
+---
+
 Do these in order. Parts 1 and 2 happen on github.com, Part 3 on godaddy.com, Part 4 is waiting, Part 5 is how you edit the site afterward.
 
 ## Part 1: put the site on the main branch (5 clicks)
